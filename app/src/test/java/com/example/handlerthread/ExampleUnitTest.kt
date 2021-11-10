@@ -2,6 +2,7 @@ package com.example.handlerthread
 
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.util.Log
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.AnyOf.anyOf
@@ -161,5 +162,15 @@ class ExampleUnitTest {
         assertTrue(lista.contains("Patatine"))
         assertTrue(lista.contains("Insalata"))
         assertTrue(lista.contains("Nachos"))
+    }
+
+    @Test
+    fun getHandler_returns(){
+        val uiHandler = MainActivity.UiHandler()
+        var orderHandlerThread = OrderHandlerThread(uiHandler)
+        val looper = Looper()
+        val handler= Handler(looper)
+        val handler1: Handler = orderHandlerThread.getHandler(looper)
+
     }
 }

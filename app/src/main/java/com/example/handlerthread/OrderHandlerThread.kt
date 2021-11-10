@@ -3,6 +3,7 @@ package com.example.handlerthread
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
+import android.os.Message
 import androidx.annotation.VisibleForTesting
 import java.math.BigDecimal
 import java.util.*
@@ -120,8 +121,16 @@ class OrderHandlerThread(private var uiHandler: MainActivity.UiHandler): Handler
     fun getHandler(looper: Looper): Handler {
         return object:Handler(looper) {
 
+            override fun handleMessage(msg: Message?) {
+                super.handleMessage(msg)
+                val foodOrder = msg?.obj as FoodOrder
+                foodOrder.foodPrice = convertCurrency(foodOrder.foodPrice)
+                foodOrder.sideOrder = attachSideOrder()
+                val processedMessage = Message()
+                processedMessage.obj = foodOrder
+                uiHandler.sendMessage(processedMessage)
+            }
         }
     }
-
 
 }
