@@ -1,22 +1,13 @@
 package com.example.handlerthread
 
-class OrderHandlerThread {
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
+import androidx.annotation.VisibleForTesting
+import java.math.BigDecimal
+import java.util.*
 
-    /*TODO 1 - The class OrderHandlerThread extends the class HandlerThread ( you should write the proper constructor of HandlerThread)
-       usually we write the name of the class inside HandlerThread for make the debug more easy
-       Solution: class OrderHandlerThread : HandlerThread("OrderHandlerThread") {}
-     */
-
-    /*TODO 2 - Now write the primary constructor of the class OrderHandlerThread
-        The primary constructor refers to the class of UIHandler of the MainActivity that we have previously built
-        solution: private var uiHandler: MainActivity.UiHandler
-     */
-
-    /* TODO 3 - Declare and initialize two variables handler (Handler) and random (Random imported from java)
-        solution:
-        private var handler: Handler? = null
-        private val random = Random()
-     */
+class OrderHandlerThread(private var uiHandler: MainActivity.UiHandler): HandlerThread("giuseppe") {
 
     /* TODO 4 - Write a function to convert in Rupie (convertCurrency) and to add sideDish (using the variable random e "when" statement)
     Crea due metodi per la conversione in Rupie e per la scelta casuale del contorno (foodPriceInDollars 68,45f) e attachSideOrder (con random e when)
@@ -88,5 +79,33 @@ class OrderHandlerThread {
         handler = getHandler(looper)
         }
      */
+
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    var handler: Handler? = null
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    var random = Random()
+
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    fun convertCurrency(foodPriceInDollars: Float): Float {
+        return (foodPriceInDollars.toBigDecimal() * 68.45.toBigDecimal()).toFloat()
+    }
+
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    fun attachSideOrder():String {
+        val randomOrder = random.nextInt(3)
+        return when(randomOrder){
+            0->"Patatine"
+            1->"Insalata"
+            else->"Nachos"
+        }
+    }
+
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    fun getHandler(looper: Looper): Handler {
+        return object:Handler(looper) {
+
+        }
+    }
+
 
 }

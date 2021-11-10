@@ -16,3 +16,8 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext {
+    dexMakerVersion = '2.12.1'
+    mockitoVersion = '2.8.9'
+
+}
