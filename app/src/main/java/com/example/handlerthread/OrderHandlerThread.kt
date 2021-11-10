@@ -121,7 +121,7 @@ class OrderHandlerThread(private var uiHandler: MainActivity.UiHandler): Handler
     fun getHandler(looper: Looper): Handler {
         return object:Handler(looper) {
 
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 val foodOrder = msg?.obj as FoodOrder
                 foodOrder.foodPrice = convertCurrency(foodOrder.foodPrice)
@@ -133,4 +133,14 @@ class OrderHandlerThread(private var uiHandler: MainActivity.UiHandler): Handler
         }
     }
 
+    fun sendOrder(foodOrder:FoodOrder){
+        val message = Message()
+        message.obj = foodOrder
+        handler?.sendMessage(message)
+    }
+
+    override fun onLooperPrepared() {
+        super.onLooperPrepared()
+        handler = getHandler(looper)
+    }
 }

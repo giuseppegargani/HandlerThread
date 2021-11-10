@@ -168,9 +168,9 @@ class ExampleUnitTest {
     fun getHandler_returns(){
         val uiHandler = MainActivity.UiHandler()
         var orderHandlerThread = OrderHandlerThread(uiHandler)
-        val looper = Looper()
-        val handler= Handler(looper)
-        val handler1: Handler = orderHandlerThread.getHandler(looper)
+        //val looper = Looper()
+        //val handler= Handler(looper)
+        //val handler1: Handler = orderHandlerThread.getHandler(looper)
 
     }
 }
