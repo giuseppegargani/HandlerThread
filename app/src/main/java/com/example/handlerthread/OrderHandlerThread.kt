@@ -7,7 +7,23 @@ import androidx.annotation.VisibleForTesting
 import java.math.BigDecimal
 import java.util.*
 
+/*TODO 1 - The class OrderHandlerThread extends the class HandlerThread ( you should write the proper constructor of HandlerThread)
+      usually we write the name of the class inside HandlerThread for make the debug more easy
+      Solution: class OrderHandlerThread : HandlerThread("OrderHandlerThread") {}
+    */
+
+/*TODO 2 - Now write the primary constructor of the class OrderHandlerThread
+    The primary constructor refers to the class of UIHandler of the MainActivity that we have previously built
+    solution: private var uiHandler: MainActivity.UiHandler
+ */
+
 class OrderHandlerThread(private var uiHandler: MainActivity.UiHandler): HandlerThread("giuseppe") {
+
+    /* TODO 3 - Declare and initialize two variables handler (Handler) and random (Random imported from java)
+    solution:
+    private var handler: Handler? = null
+    private val random = Random()
+ */
 
     /* TODO 4 - Write a function to convert in Rupie (convertCurrency) and to add sideDish (using the variable random e "when" statement)
     Crea due metodi per la conversione in Rupie e per la scelta casuale del contorno (foodPriceInDollars 68,45f) e attachSideOrder (con random e when)
