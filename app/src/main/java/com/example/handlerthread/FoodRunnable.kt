@@ -2,46 +2,7 @@ package com.example.handlerthread
 
 import java.util.*
 
-/* TODO - 1 Declare a private instance of OrderHandlerThread inside the primary constructor
-    solution: class FoodRunnable(private var orderHandlerThread: OrderHandlerThread)
- */
-
-/* TODO - 2 Add a method setMaxOrders (not private) that returns nothins but just assigns the numbers of orders to the private variable size
-    solution:
-    fun setMaxOrders(size: Int) {
-    this.size = size
-    }
- */
-
-/* TODO - 3 Inside run() write a while loop (that check alive condition and count variable less than size)
-    solution :  while (alive && count < size) {  }
-*/
-
-/* TODO - 4 Inside while, increment count by one, initialize a variable foodName with a random name (using method of this class)
-    solution:
-    count++
-    val foodName = getRandomOrderName()
- */
-
-/* TODO - 5 Initialize a new variable foodPrice with a random value
-    val foodPrice = getRandomOrderPrice()
- */
-
-/* TODO - 6 Pass the order to the OrderHandlerThread
-    solution: orderHandlerThread.sendOrder(FoodOrder(foodName,foodPrice))
- */
-
-/* TODO - 7 Set a delay of one second with a try-catch block
-    The thread'll continue until the maximum number of orders
-    solution:
-    try {
-        Thread.sleep(1000)
-      } catch (exception: InterruptedException) {
-        exception.printStackTrace()
-      }
- */
-
-class FoodRunnable() : Runnable {
+class FoodRunnable(private var orderHandlerThread: OrderHandlerThread) : Runnable {
 
     private var thread: Thread = Thread(this)
     private var alive: Boolean = false
@@ -50,6 +11,17 @@ class FoodRunnable() : Runnable {
 
     override fun run() {
         alive = true
+        while (alive && count < size) {
+            count++
+            val foodName = getRandomOrderName()
+            val foodPrice = getRandomOrderPrice()
+            orderHandlerThread.sendOrders(FoodOrder(foodName, foodPrice))
+            try {
+                Thread.sleep(1000)
+            } catch (exception: InterruptedException) {
+                exception.printStackTrace()
+            }
+        }
     }
 
     fun start() {
@@ -99,5 +71,9 @@ class FoodRunnable() : Runnable {
             8 -> 45f
             else -> 50f
         }
+    }
+
+    fun setMaxOrders(size: Int){
+        this.size = size
     }
 }
