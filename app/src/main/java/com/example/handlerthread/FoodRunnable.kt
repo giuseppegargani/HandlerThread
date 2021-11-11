@@ -1,5 +1,6 @@
 package com.example.handlerthread
 
+import androidx.annotation.VisibleForTesting
 import java.util.*
 
 class FoodRunnable() : Runnable {
@@ -25,7 +26,8 @@ class FoodRunnable() : Runnable {
     /**
      * @return Random Order Name for the restaurant.
      */
-    private fun getRandomOrderName(): String {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getRandomOrderName(): String {
         val random = Random()
         val randomOrder = random.nextInt(10)
         return when (randomOrder) {
@@ -45,7 +47,8 @@ class FoodRunnable() : Runnable {
     /**
      * @return get the random price for orders in restaurant.
      */
-    private fun getRandomOrderPrice(): Float {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getRandomOrderPrice(): Float {
         val random = Random()
         val randomOrder = random.nextInt(10)
         return when (randomOrder) {

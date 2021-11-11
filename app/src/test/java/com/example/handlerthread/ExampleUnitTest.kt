@@ -45,6 +45,7 @@ import kotlin.reflect.typeOf
         In kotlin: https://kotlinlang.org/docs/reflection.html#function-references  (Official documentation)
         https://kotlinlang.org/docs/reflection.html#constructor-references  per costruttori pubblici
         REFLECTION CLASSEFIELDS INTERESSANTE!!! https://www.baeldung.com/java-reflection-class-fields
+        https://softwareengineering.stackexchange.com/questions/193526/is-it-a-bad-habit-to-overuse-reflection
  */
 
 /*3 - JUNIT AND SUPERCLASS
@@ -168,9 +169,11 @@ class ExampleUnitTest {
     fun getHandler_returns(){
         val uiHandler = MainActivity.UiHandler()
         var orderHandlerThread = OrderHandlerThread(uiHandler)
-        //val looper = Looper()
-        //val handler= Handler(looper)
-        //val handler1: Handler = orderHandlerThread.getHandler(looper)
-
+        assertNull(orderHandlerThread.handler)
+        val runnable = FoodRunnable()
+        val foodOrder = FoodOrder(runnable.getRandomOrderName(),runnable.getRandomOrderPrice(),orderHandlerThread.attachSideOrder())
+        orderHandlerThread.sendOrder(foodOrder)
+        assertNotNull(runnable)
+        assertNotNull(foodOrder)
     }
 }
